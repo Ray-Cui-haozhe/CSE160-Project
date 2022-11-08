@@ -1,0 +1,57 @@
+"""
+* Name: Haozhe Cui
+* Date: 2022/8/19
+* CSE 160, Summer 2022
+"""
+
+import fraud_detection as fd
+import math
+
+
+def test_ones_and_tens_digit_histogram():
+    # example from spec
+    actual = fd.ones_and_tens_digit_histogram([127, 426, 28, 9, 90])
+    expected = [0.2, 0.0, 0.3, 0.0, 0.0, 0.0, 0.1, 0.1, 0.1, 0.2]
+    for i in range(len(actual)):
+        assert math.isclose(actual[i], expected[i])
+
+    print('test_ones_and_tens_digit_histogram passed')
+    # add more test cases here
+
+# write other test functions here
+
+
+def test_mean_squared_error():
+    # using assert function to testify whether the result of mean_squared
+    # function is my expected answer.
+    assert math.isclose(fd.mean_squared_error([1, 4, 9], [6, 5, 4]), 17.0)
+    assert math.isclose(fd.mean_squared_error([5, 9, 9], [6, 5, 4]), 14.0)
+
+    # if function passed, it will print 'passed'.
+    print('test_test_mean_squared_error passed')
+
+
+def test_calculate_mse_with_uniform():
+
+    # using counts firstly store the length of specific data sets.
+    counts = fd.extract_election_votes(
+                     "election-iran-2009.csv",
+                     ["Ahmadinejad", "Rezai", "Karrubi", "Mousavi"])
+
+    histogram = fd.ones_and_tens_digit_histogram(counts)
+    # check whether the result of calculate_mse is my expected answer
+    assert math.isclose(fd.calculate_mse_with_uniform(histogram),
+                        0.0007395833333333334)
+
+    print('test_calculate_mse_with_uniform passed')
+
+
+def main():
+    test_ones_and_tens_digit_histogram()
+    test_mean_squared_error()
+    test_calculate_mse_with_uniform()
+    # call other test functions here
+
+
+if __name__ == "__main__":
+    main()
